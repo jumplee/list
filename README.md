@@ -10,7 +10,7 @@ list组件可以方便地给数据分页。
 ```html
         <script src="http://cdn.bootcss.com/jquery/3.0.0-alpha1/jquery.min.js"></script>
         <script src="http://cdn.bootcss.com/handlebars.js/3.0.3/handlebars.min.js"></script>
-        <script src="../dist/pager2.js"></script>
+        <script src="../dist/list.js"></script>
 ```
     handlebar.js可以只使用runtime，如果使用webpack可以直接require相应模板。只需要保证可以使用的就好
 2.引用css
