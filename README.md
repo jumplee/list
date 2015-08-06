@@ -99,3 +99,6 @@ setOpts(optionObject)
 
 	设置参数
 	
+##todo
+1.代码测试
+2.浏览器兼容性测试和罗列
