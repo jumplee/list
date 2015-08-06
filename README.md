@@ -7,16 +7,16 @@ list组件可以方便地给数据分页。
 1.引用js
     依赖：jquery handlebar
     组件
-    ```html
+```html
         <script src="http://cdn.bootcss.com/jquery/3.0.0-alpha1/jquery.min.js"></script>
         <script src="http://cdn.bootcss.com/handlebars.js/3.0.3/handlebars.min.js"></script>
         <script src="../dist/pager2.js"></script>
-    ```
-    handlebar.js也可以引用runtime，如果使用webpack可以直接require相应模板。只需要保证配置项tpl
+```
+    handlebar.js可以只使用runtime，如果使用webpack可以直接require相应模板。只需要保证可以使用的就好
 2.引用css
-    ```html
+```html
         <link rel="stylesheet" href="../dist/list.css">
-    ``
+```
 ##使用
 
 ####前台代码
@@ -42,7 +42,7 @@ var pp=new List(options);
 ```
 
 ####后台代码
-使用[thinkjs](http://thinkjs.cn)
+使用[thinkjs](http://thinkjs.org)
 ```javascript
 /**
  * controller
