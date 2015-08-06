@@ -631,7 +631,7 @@ if (typeof define === 'function' && define.amd) {
  *     	type:提交的类型 可以是"get","post"		默认值:"get"
  *    	rows:一页的行数
 		//
- *		template:用于展示的script模板的id
+ *		tpl:用于展示的script模板的id
  *		voName:模板中each循环的变量名    默认值为：list
  *		target:选中后用来填充html的目标元素
 		//
@@ -674,11 +674,11 @@ var pager=function(opts){
 			pagePosition:"bottom",
 			width:"auto",
 			height:"auto",
-			target:".ytable",
-			template:null,
+			target:".x-list",
+			tpl:null,
             emptyText:'暂无数据',
 			//loading:"http://i.azpdl.com/pdl-static/images/zzc.gif",
-        loading:' <div class="ytable_zzc_img" title="1">'+
+        loading:' <div class="x-list-zzc-img" title="1">'+
   ' <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" '+
   ' width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">'+
   ' <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">'+
@@ -699,7 +699,7 @@ var pager=function(opts){
 			render:function(vo,view){
 				var html='';
 			    for(var i=0;i<vo.length;i++){
-                    html+='<div class="x-list-item" data-index="'+i+'">'+self.options.template(vo[i])+'</div>'
+                    html+='<div class="x-list-item" data-index="'+i+'">'+self.options.tpl(vo[i])+'</div>'
                 }
 				view.html(html);
                 view.on('click','.x-list-item',function(e){
@@ -730,46 +730,46 @@ pager.prototype={
             self.currentPage=self.options.currentPage;
 			//TODO 应该保证viewDom只有一个
 			self.viewDom=$(opts.target);
-			self.viewDom.addClass("ytable");
+			self.viewDom.addClass("x-list");
 
 			//添加一个内部的div用来放置模板
-			var innerHtml='<div class="ytable_outer"><div class="ytable_inner"></div>'+
+			var innerHtml='<div class="x-list-outer"><div class="x-list-inner"></div>'+
 			    //初始化过渡效果
-			    '<div class="ytable_zzc">'+opts.loading+'</div>'+
+			    '<div class="x-list-zzc">'+opts.loading+'</div>'+
                 '</div>';
 			self.viewDom.html(innerHtml);
-            var viewOut=self.viewDom.find(".ytable_outer");
+            var viewOut=self.viewDom.find(".x-list-outer");
 			//根据参数判断页码在哪里放置
 			if (self.options.pagePosition=="top") {
-				viewOut.prepend('<div class="ytable_pagebar"></div>');
+				viewOut.prepend('<div class="x-list-pagebar"></div>');
 			}else{
-				viewOut.append('<div class="ytable_pagebar"></div>');
+				viewOut.append('<div class="x-list-pagebar"></div>');
 			}
-			self.templateView=self.viewDom.find(".ytable_inner");
+			self.templateView=self.viewDom.find(".x-list-inner");
 			self.templateView.css({
 				height:opts.height,
 				width:opts.width
 				});
-			self.pageBar=viewOut.find(".ytable_pagebar");
+			self.pageBar=viewOut.find(".x-list-pagebar");
 			fetch(response);
 			function fetch(callback){
                 //请求开始
 				var view_panel=self.viewDom;
-                var innerPanel=self.viewDom.find('.ytable_inner');
+                var innerPanel=self.viewDom.find('.x-list-inner');
 				var mask_width=view_panel.outerWidth();
 				var mask_height=view_panel.outerHeight();
 				if(mask_height==0){
 					mask_height=100;
 				}
-				$(".ytable_zzc").css({
+				$(".x-list-zzc").css({
 				  "width":mask_width,
 				  "height":mask_height
 				 });
-				 $(".ytable_zzc_img").css({
+				 $(".x-list-zzc-img").css({
 				  "top":(innerPanel.outerHeight()-100)/2,
 				  "left":(innerPanel.outerWidth()-30)/2
 				 });
-				 self.viewDom.find(".ytable_zzc").show();
+				 self.viewDom.find(".x-list-zzc").show();
                 //请求开始
 				var url=self.options.url;
                 var params={};
@@ -848,7 +848,7 @@ pager.prototype={
 		}
 		,render:function(vo){
 			//请求结束
-          	this.viewDom.find(".ytable_zzc").hide();
+          	this.viewDom.find(".x-list-zzc").hide();
             //请求结束-code ----end
 			//vo :数据
 			//view:用于填充模板的div对象

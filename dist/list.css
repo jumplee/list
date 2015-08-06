@@ -1,17 +1,17 @@
 @CHARSET "UTF-8";
-.ytable{
+.x-list{
 	
 
 }
-.ytable_outer{
+.x-list-outer{
 	position:relative;
   overflow: hidden;
 }
-.ytable_inner{
+.x-list-inner{
 overflow: auto;
   min-height: 150px;
 }
-.ytable_zzc{
+.x-list-zzc{
   background-color:white;
   position:absolute;
   top:0;
@@ -19,7 +19,7 @@ overflow: auto;
   vertical-align: middle;
   z-index: 99;
 }
-.ytable_zzc_img{
+.x-list-zzc-img{
   position: absolute;
 }
 
@@ -214,7 +214,7 @@ overflow: auto;
 .pagination {
   margin: 15px auto;
 }
-.ytable_pagebar{
+.x-list-pagebar{
 text-align: center;
 }
 

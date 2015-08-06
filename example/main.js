@@ -6,7 +6,7 @@ var options={
 	dataName:"data",
 	totalName:"total",
 	rowLimit:10,
-	template:t_table,
+	tpl:t_table,
 	target:"#list"
 	//height:"500px"
 };
