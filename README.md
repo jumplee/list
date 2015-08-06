@@ -24,8 +24,6 @@ list组件可以方便地给数据分页。
 //var t_table=require('listItemTpl.html');
 var t_table= Handlebars.compile($("#list_tpl").html());
 //后台action
-//var url='http://127.0.0.1:8360/home/index/indexJSON';
-//用json文件先代替一下
 var url='http://127.0.0.1:8360/home/index/indexJSON';
 var options={
 	url:url,
