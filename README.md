@@ -70,3 +70,32 @@ module.exports = Controller("Home/BaseController", function(){
 });
 
 ```
+
+##options(配置)
+ * opts
+ *     	url:请求的地址
+ *     	param:传参
+ *     	type:提交的类型 可以是"get","post"		默认值:"get"
+ *    	rows:一页的行数
+ *		tpl:用于展示的script模板的id
+ *		voName:模板中each循环的变量名    默认值为：list
+ *		target:选中后用来填充html的目标元素
+ *		render:自定义的显示效果  有两个参数，data表示为vo数据，view是用于展示模板的jQuery对象  render(vo,view)
+ *		width:要显示的区域的宽度
+ *		height:要显示的区域的高度
+ *		onrender:render完成后执行事件
+ *		pagePosition:放置分页的位置 默认为"bottom" 可选项："top" ,"bottom"
+ *		//后台交互的数据中可以自定义的参数----------------
+ *		pageParam:用来设置提交参数中的表示页数的参数名称
+ *		totalName:页数的总数，用来后台返回
+
+
+##api
+page(num)
+	
+	显示某一页
+	
+setOpts(optionObject)
+
+	设置参数
+	
