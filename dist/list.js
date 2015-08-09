@@ -633,7 +633,7 @@ if (typeof define === 'function' && define.amd) {
 		//
  *		tpl:用于展示的script模板的id
  *		voName:模板中each循环的变量名    默认值为：list
- *		target:选中后用来填充html的目标元素
+ *		element:选中后用来填充html的目标元素
 		//
  *		render:自定义的显示效果  有两个参数，data表示为vo数据，view是用于展示模板的jQuery对象  render(vo,view)
  *		width:要显示的区域的宽度
@@ -674,14 +674,14 @@ var pager=function(opts){
 			pagePosition:"bottom",
 			width:"auto",
 			height:"auto",
-			target:".x-list",
+			element:".x-list",
 			tpl:null,
             emptyText:'暂无数据',
 			//loading:"http://i.azpdl.com/pdl-static/images/zzc.gif",
         loading:' <div class="x-list-zzc-img" title="1">'+
   ' <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" '+
   ' width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">'+
-  ' <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">'+
+  ' <path fill="#blue" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">'+
   ' <animateTransform attributeType="xml"'+
   ' attributeName="transform"'+
   ' type="rotate"'+
@@ -729,7 +729,7 @@ pager.prototype={
             //根据options中的currentPage参数来初始化分页组件，默认开始页面是1
             self.currentPage=self.options.currentPage;
 			//TODO 应该保证viewDom只有一个
-			self.viewDom=$(opts.target);
+			self.viewDom=$(opts.element);
 			self.viewDom.addClass("x-list");
 
 			//添加一个内部的div用来放置模板
@@ -854,7 +854,7 @@ pager.prototype={
 			//view:用于填充模板的div对象
 			this.options.render(vo,this.templateView);
 			if(typeof this.options.onrender=="function"){
-				this.options.onrender($(this.options.target));
+				this.options.onrender($(this.options.element));
 			}
 
 		}

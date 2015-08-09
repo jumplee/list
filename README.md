@@ -32,7 +32,7 @@ var options={
 	rowLimit:10,
 	tpl:t_table,
 	//jquery 选择器
-	target:"#list"
+	element:"#list"
 	//height:"500px"
 };
 var pp=new List(options);
@@ -79,7 +79,7 @@ module.exports = Controller("Home/BaseController", function(){
  *    	rows:一页的行数
  *		tpl:用于展示的script模板的id
  *		voName:模板中each循环的变量名    默认值为：list
- *		target:选中后用来填充html的目标元素
+ *		element:选中后用来填充html的目标元素
  *		render:自定义的显示效果  有两个参数，data表示为vo数据，view是用于展示模板的jQuery对象  render(vo,view)
  *		width:要显示的区域的宽度
  *		height:要显示的区域的高度
