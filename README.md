@@ -28,7 +28,6 @@ var url='http://127.0.0.1:8360/home/index/indexJSON';
 var options={
 	url:url,
 	dataName:"data",
-	totalName:"total",
 	rowLimit:10,
 	tpl:t_table,
 	//jquery 选择器
@@ -73,10 +72,10 @@ module.exports = Controller("Home/BaseController", function(){
 
 ##options(配置)
  * opts
- *     	url:请求的地址
- *     	param:传参
- *     	type:提交的类型 可以是"get","post"		默认值:"get"
- *    	rows:一页的行数
+ *    url:请求的地址
+ *    param:传参
+ *    type:提交的类型 可以是"get","post"		默认值:"get"
+ *    rows:一页的行数
  *		tpl:用于展示的script模板的id
  *		voName:模板中each循环的变量名    默认值为：list
  *		element:选中后用来填充html的目标元素
@@ -86,9 +85,9 @@ module.exports = Controller("Home/BaseController", function(){
  *		onrender:render完成后执行事件
  *		pagePosition:放置分页的位置 默认为"bottom" 可选项："top" ,"bottom"
  *		//后台交互的数据中可以自定义的参数----------------
- *		pageParam:用来设置提交参数中的表示页数的参数名称
- *		totalName:页数的总数，用来后台返回
-
+ *		pageParam: 用来设置提交参数中的表示页数的参数名称
+ *		totalName: 数据的总数，用来后台返回 默认值为 total
+ *    dataName:  返回数据的参数  默认： result
 
 ##api
 page(num)
