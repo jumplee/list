@@ -638,7 +638,7 @@
  *		render:自定义的显示效果  有两个参数，data表示为vo数据，view是用于展示模板的jQuery对象  render(vo,view)
  *		width:要显示的区域的宽度
  *		height:要显示的区域的高度
-
+ *		emptyText:'暂无数据' 当不存在数据的时候
 
  *		onrender:render完成后执行事件
  *		pagePosition:放置分页的位置 默认为"bottom" 可选项："top" ,"bottom"
@@ -676,7 +676,7 @@
             height:"auto",
             element:".x-list",
             tpl:null,
-            emptyText:'暂无数据',
+            emptyText:'<div class="x-list-empty-text">暂无数据</div>',
             //loading:"http://i.azpdl.com/pdl-static/images/zzc.gif",
             loading:' <div class="x-list-zzc-img" title="1">'+
             ' <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" '+
@@ -701,7 +701,11 @@
                 for(var i=0;i<vo.length;i++){
                     html+='<div class="x-list-item" data-index="'+i+'">'+self.options.tpl(vo[i])+'</div>'
                 }
-                view.html(html);
+                if(html){
+                    view.html(html);
+                }else{
+                    view.html(self.options.emptyText)
+                }
                 view.on('click','.x-list-item',function(e){
                     var item=$(this);
                     var itemData=self.rawData[self.options.dataName][item.attr('data-index')];

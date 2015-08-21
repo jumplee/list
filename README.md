@@ -83,6 +83,7 @@ module.exports = Controller("Home/BaseController", function(){
  *		width:要显示的区域的宽度
  *		height:要显示的区域的高度
  *		onrender:render完成后执行事件
+ *    emptyText:'<div class="x-list-empty-text">暂无数据</div>' 当不存在数据的时候
  *		pagePosition:放置分页的位置 默认为"bottom" 可选项："top" ,"bottom"
  *		//后台交互的数据中可以自定义的参数----------------
  *		pageParam: 用来设置提交参数中的表示页数的参数名称

@@ -24,6 +24,13 @@ overflow: auto;
   position: absolute;
 }
 
+.x-list-empty-text{
+  text-align: center;
+  padding: 15px;
+  font-size: 1.2em;
+  color: #808080;
+}
+
 /* {{{ page*/
 
 .pagination {
