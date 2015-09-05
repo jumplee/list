@@ -799,6 +799,7 @@
                     var vo=data[self.options.dataName];
                 }
                 self.total=data[self.options.totalName];
+                self.data=vo;
                 var total=self.total;
                 if($.isEmptyObject(vo)){
                     //如果为第一页还是没有信息，就是确实没有内容，就不处理了
