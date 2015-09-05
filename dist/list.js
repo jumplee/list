@@ -813,7 +813,7 @@
                     //}
                 }else{
                     //
-                    init_render(vo,Math.ceil(Math.round(total/self.options.rowLimit)));
+                    init_render(vo,Math.ceil(total/self.options.rowLimit));
                 }
             }
             function show_list(e,op,np){
