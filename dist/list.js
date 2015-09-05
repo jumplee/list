@@ -812,7 +812,8 @@
                     //	self.init();
                     //}
                 }else{
-                    init_render(vo,Math.round(total/self.options.rowLimit)+1);
+                    //
+                    init_render(vo,Math.ceil(Math.round(total/self.options.rowLimit)));
                 }
             }
             function show_list(e,op,np){
