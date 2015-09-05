@@ -693,8 +693,7 @@
             ' </svg>'+
             ' </div>',
             onItemClick:function(list,data,node,index,event){
-                //console.log(arguments);
-                console.log(event)
+
             },
             render:function(vo,view){
                 var html='';
@@ -812,7 +811,6 @@
                     //	self.init();
                     //}
                 }else{
-                    //
                     init_render(vo,Math.ceil(total/self.options.rowLimit));
                 }
             }
@@ -825,14 +823,14 @@
                     }else{
                         var vo=data[self.options.dataName];
                     }
-                    self.render(vo);
+                    init_render(vo,Math.ceil(data[self.options.totalName]/self.options.rowLimit));
+
+                    //self.render(vo);
 
                 });
             }
 
             function init_render(vo,total){
-
-                self.render(vo)
                 if(vo.length>0){
                     //分页
                     var options = {
@@ -841,17 +839,21 @@
                         ,currentPage:self.currentPage
                     }
                     options=$.extend(options,self.options.pageOption);
+                    if( self.pageBar.data('bootstrapPaginator')){
+                        self.pageBar.data('bootstrapPaginator').destroy();
+                    }
                     self.pageBar.bootstrapPaginator(options);
                 }else{
                     //清空列表，当列表从有数据变为无数据时，应当把原来的那排导航清除
                     self.pageBar.empty(self.options.emptyText);
-
                 }
+                self.render(vo);
             }
 
 
         }
         ,render:function(vo){
+
             //请求结束
             this.viewDom.find(".x-list-zzc").hide();
             //请求结束-code ----end
@@ -876,6 +878,7 @@
             // this.options.param=opts.param;
             // this.options.type=opts.type;
             //this.init();
+            this.page(1);
         }
         ,getCurrentPage:function(){
             return this.currentPage;
@@ -885,11 +888,14 @@
          * @param page_num
          */
         ,page:function(page_num){
+            var before_num=this.currentPage;
             if(page_num>0&&page_num<this.total+1){
                 this.currentPage=page_num;
             }
             var pager=  this.pageBar.data('bootstrapPaginator');
             pager.show(page_num);
+            //避免页数相同的时候不请求后台
+            this.pageBar.trigger('page-changed',[before_num,page_num]);
         },
         destory : function(){
 
