@@ -1,12 +1,12 @@
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module depending on jQuery.
-        define(['jquery','handlebars'], factory);
+        define(['jquery'], factory);
     } else {
         // No AMD. Register plugin with global jQuery object.
-        factory(jQuery,Handlebars);
+        factory(jQuery);
     }
-}(function ($,Handlebars) {
+}(function ($) {
 
     /**
      * bootstrap-paginator.js v0.5
@@ -618,7 +618,7 @@
 
 
     /**
-     * 依赖于jquery handlebars bootstrap-paginator
+     * 依赖于jquery  bootstrap-paginator
      * pager对象
      *
      * @param opts
@@ -629,7 +629,7 @@
  *     	url:请求的地址
  *     	param:传参
  *     	type:提交的类型 可以是"get","post"		默认值:"get"
- *    	rows:一页的行数
+ *    	rowLimit:一页的行数
 		//
  *		tpl:用于展示的script模板的id
  *		voName:模板中each循环的变量名    默认值为：list
@@ -693,24 +693,8 @@
             ' </svg>'+
             ' </div>',
             onItemClick:function(list,data,node,index,event){
-
-            },
-            render:function(vo,view){
-                var html='';
-                for(var i=0;i<vo.length;i++){
-                    html+='<div class="x-list-item" data-index="'+i+'">'+self.options.tpl(vo[i])+'</div>'
-                }
-                if(html){
-                    view.html(html);
-                }else{
-                    view.html(self.options.emptyText)
-                }
-                view.on('click','.x-list-item',function(e){
-                    var item=$(this);
-                    var itemData=self.rawData[self.options.dataName][item.attr('data-index')];
-                    self.options.onItemClick.call(self,this,itemData, e.target,item.attr('data-index'),e);
-                });
             }
+
         };
         //获取参数
         self.options=$.extend(opts_default,opts);
@@ -753,6 +737,21 @@
                 height:opts.height,
                 width:opts.width
             });
+            //注册单击事件
+            self.templateView.on('click','.x-list-item',function(e){
+                var item=$(this);
+                var itemData=self.rawData[self.options.dataName][item.attr('data-index')];
+                self.options.onItemClick.call(self,this,itemData, e.target,item.attr('data-index'),e);
+            });
+            //增加touch时间效果
+            self.templateView.on('touchstart','.x-list-item',function(e){
+                var item=$(this);
+                item.addClass('active-state')
+            });
+            self.templateView.on('touchend','.x-list-item',function(e){
+                var item=$(this);
+                item.removeClass('active-state')
+            });
             self.pageBar=viewOut.find(".x-list-pagebar");
             fetch(response);
             function fetch(callback){
@@ -764,14 +763,6 @@
                 if(mask_height==0){
                     mask_height=100;
                 }
-                $(".x-list-zzc").css({
-                    "width":mask_width,
-                    "height":mask_height
-                });
-                $(".x-list-zzc-img").css({
-                    "top":(innerPanel.outerHeight()-100)/2,
-                    "left":(innerPanel.outerWidth()-30)/2
-                });
                 self.viewDom.find(".x-list-zzc").show();
                 //请求开始
                 var url=self.options.url;
@@ -787,9 +778,27 @@
                     data:param,
                     success:callback,
                     error:function(xhr){
-                        alert(xhr.responseText);
+                       //if(xhr.readyState==0){
+                       //
+                       //}else{
+                       //
+                       //}
+                        responseError()
                     }
                 })
+            }
+
+            function responseError(){
+                self.viewDom.find(".x-list-zzc").hide();
+                self.viewDom.find('.x-list-inner').html(
+                    '<div class="x-list-error">请求失败，请检查网络</div><div class="x-list-refresh">刷新</div>'
+                );
+                self.viewDom.find('.x-list-refresh').click(function(){
+                    self.init();
+                });
+                if( self.pageBar.data('bootstrapPaginator')){
+                    self.pageBar.data('bootstrapPaginator').destroy();
+                }
             }
             function response(data){
                 self.rawData=data;
@@ -798,22 +807,14 @@
                 }else{
                     var vo=data[self.options.dataName];
                 }
-                self.total=data[self.options.totalName];
-                self.data=vo;
-                var total=self.total;
-                if($.isEmptyObject(vo)){
-                    //如果为第一页还是没有信息，就是确实没有内容，就不处理了
-                    //由于可能会有删除功能，所以还要进行一次初始化
-                    //出现死循环，废除这个功能
-                    //if(0==total){
-                    //	init_render(vo,total);
-                    //}else{
-                    //	self.currentPage=total;
-                    //	self.init();
-                    //}
-                }else{
-                    init_render(vo,Math.ceil(total/self.options.rowLimit));
+                if(typeof vo=='undefined'){
+                    responseError();
+                    return false;
                 }
+                self.data=vo;
+                self.total=data[self.options.totalName];
+                var total=self.total;
+                init_render(vo,Math.ceil(total/self.options.rowLimit));
             }
             function show_list(e,op,np){
                 //不能用this,这里的this指的是页码div的dom对象
@@ -824,14 +825,12 @@
                     }else{
                         var vo=data[self.options.dataName];
                     }
-                    init_render(vo,Math.ceil(data[self.options.totalName]/self.options.rowLimit));
-
-                    //self.render(vo);
-
+                    self.render(vo);
                 });
             }
 
             function init_render(vo,total){
+                //是数组
                 if(vo.length>0){
                     //分页
                     var options = {
@@ -846,30 +845,45 @@
                     self.pageBar.bootstrapPaginator(options);
                 }else{
                     //清空列表，当列表从有数据变为无数据时，应当把原来的那排导航清除
-                    self.pageBar.empty(self.options.emptyText);
+                    self.pageBar.empty();
                 }
                 self.render(vo);
             }
 
 
-        }
-        ,render:function(vo){
-
+        },
+        render:function(vo){
             //请求结束
             this.viewDom.find(".x-list-zzc").hide();
             //请求结束-code ----end
             //vo :数据
             //view:用于填充模板的div对象
-            this.options.render(vo,this.templateView);
+            if(typeof this.options.onLoad=="function"){
+                this.options.onLoad(vo);
+            }
+            this._render(vo,this.templateView);
             if(typeof this.options.onrender=="function"){
                 this.options.onrender($(this.options.element));
             }
 
-        }
+        },
 
+        _render:function(vo,view){
+            var self=this;
+            var html='';
+            for(var i=0;i<vo.length;i++){
+                html+='<div class="x-list-item" data-index="'+i+'">'+self.options.tpl(vo[i])+'</div>'
+            }
+            if(html){
+                view.html(html);
+            }else{
+                view.html(self.options.emptyText)
+            }
+
+        },
 
 //todo 应该有理想的修改地址和参数的方法。dept.jsp需要
-        ,setOpts:function(opts){
+        setOption:function(opts){
             //没有初始化，无法重新设置options
             if(!this.isInit){
                 return false;
@@ -878,8 +892,8 @@
             // this.options.url=opts.url;
             // this.options.param=opts.param;
             // this.options.type=opts.type;
-            //this.init();
-            this.page(1);
+            this.init();
+            //this.page(1);
         }
         ,getCurrentPage:function(){
             return this.currentPage;
@@ -894,7 +908,13 @@
                 this.currentPage=page_num;
             }
             var pager=  this.pageBar.data('bootstrapPaginator');
-            pager.show(page_num);
+            if(pager){
+                pager.show(page_num);
+            }else{
+                console.log('list:page fail,reInit');
+                this.init();
+            }
+
             //避免页数相同的时候不请求后台
             this.pageBar.trigger('page-changed',[before_num,page_num]);
         },
@@ -907,7 +927,7 @@
 
     window.List=pager;
 
-//requirejs
+    //requirejs
     return pager
 
 }));

@@ -187,5 +187,32 @@
 }
 /*位置修正 by lee*/
 .pagination {
-    margin: 15px auto;
+    margin: 0;
+    margin-top: 10px;
+}
+/* 增加list对table效果的简单支持
+tpl=`
+    <span>
+        {{title}}
+    </span>
+    <span>
+        {{content}}
+    </span>
+
+
+`
+*/
+.x-list-item>span{
+    line-height: 40px;
+    height: 40px;
+    padding: 0 9px;
+    box-sizing: border-box;
+    border-right: 1px solid #E0E0E0;
+    border-bottom: 1px solid #E0E0E0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.x-list-item>span:first-child{
+    border-left:1px solid #E0E0E0;
 }

@@ -16,6 +16,8 @@ list组件可以方便地给数据分页。
 2.引用css
 ```html
         <link rel="stylesheet" href="../dist/list.css">
+        <!-- 分页组件适用于bootstrap3，如果已经引用了bootstrap3的css文件可以不需要加载list.ui.css -->
+         <link rel="stylesheet" href="../dist/list.ui.css">
 ```
 ##使用
 
@@ -23,23 +25,23 @@ list组件可以方便地给数据分页。
 ```javascript
 //var t_table=require('listItemTpl.html');
 var t_table= Handlebars.compile($("#list_tpl").html());
-//后台action
-var url='http://127.0.0.1:8360/home/index/indexJSON';
+//后台action  直接访问需要跨域
+//var url='http://127.0.0.1:8360/home/index/list';
+var url='../data/page.json';
 var options={
 	url:url,
-	dataName:"data",
+	dataName:'data',//默认值为：'result'
 	rowLimit:10,
 	tpl:t_table,
 	//jquery 选择器
-	element:"#list"
-	//height:"500px"
+	element:'#list'
 };
 var pp=new List(options);
 
 ```
 
 ####后台代码
-使用[thinkjs](http://thinkjs.org)
+使用[thinkjs](http://thinkjs.org)写的一个简单的例子
 ```javascript
 /**
  * controller
@@ -52,7 +54,7 @@ module.exports = Controller("Home/BaseController", function(){
       //render View/Home/index_index.html file
       this.display();
     },
-    indexJSONAction:function(){
+    listAction:function(){
       var self=this;
       var page=this.get('page');
       setTimeout(function(){
@@ -71,18 +73,16 @@ module.exports = Controller("Home/BaseController", function(){
 ```
 
 ##options(配置)
- * opts
  *    url:请求的地址
  *    param:传参
  *    type:提交的类型 可以是"get","post"		默认值:"get"
- *    rows:一页的行数
- *		tpl:用于展示的script模板的id
- *		voName:模板中each循环的变量名    默认值为：list
+ *    rowLimit:一页的行数
+ *		tpl:Handlebars或者类似的模板函数的编译后的函数
  *		element:选中后用来填充html的目标元素
- *		render:自定义的显示效果  有两个参数，data表示为vo数据，view是用于展示模板的jQuery对象  render(vo,view)
+ *		onLoad:参数vo,加载过来的vo,对vo进行加工生成需要的结构体，**必须返回数据**
  *		width:要显示的区域的宽度
  *		height:要显示的区域的高度
- *		onrender:render完成后执行事件
+ *		onender:render完成后执行事件
  *    emptyText:'<div class="x-list-empty-text">暂无数据</div>' 当不存在数据的时候
  *		pagePosition:放置分页的位置 默认为"bottom" 可选项："top" ,"bottom"
  *		//后台交互的数据中可以自定义的参数----------------
@@ -102,3 +102,4 @@ setOpts(optionObject)
 ##todo
 1.代码测试
 2.浏览器兼容性测试和罗列
+3.去除对bootstrapager的依赖。

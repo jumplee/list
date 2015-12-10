@@ -19,9 +19,15 @@ overflow: auto;
   vertical-align: middle;
   z-index: 99;
   opacity:0.8;
+  height: 100%;
+  width: 100%;
 }
 .x-list-zzc-img{
   position: absolute;
+  top: 50%;
+  margin-top: -20px;
+  margin-left: -20px;
+  left: 50%;
 }
 
 .x-list-empty-text{
@@ -32,8 +38,26 @@ overflow: auto;
 }
 
 .x-list-pagebar{
-text-align: center;
+    text-align: center;
 }
 
-/*end ----page  }}}*/  
+.x-list-item{display: flex;}
+
+.x-list-item.active-state{
+  background-color:aliceblue;
+  /* border: 1px solid red; */
+}
+
+.x-list-error {
+    text-align: center;
+    padding: 1em;
+    font-size: 1.5em;
+}
+.x-list-refresh {
+    text-align: center;
+    font-size: 1.5em;
+    color: #2079DC;
+    cursor: pointer;
+}
+
 

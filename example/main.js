@@ -1,5 +1,5 @@
 var t_table= Handlebars.compile($("#list_tpl").html());
-var url='http://127.0.0.1:8360/home/index/indexJSON';
+var url='../data/page.json';
 
 var options={
 	url:url,
@@ -8,6 +8,5 @@ var options={
 	rowLimit:10,
 	tpl:t_table,
 	target:"#list"
-	//height:"500px"
 };
-var pp=new List(options);
+var list=new List(options);
