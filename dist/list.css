@@ -41,7 +41,10 @@ overflow: auto;
     text-align: center;
 }
 
-.x-list-item{display: flex;}
+.x-list-item{
+    display: flex;
+    display:-webkit-box;
+}
 
 .x-list-item.active-state{
   background-color:aliceblue;

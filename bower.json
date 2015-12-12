@@ -1,5 +1,5 @@
 {
-  "name": "list.js",
+  "name": "list",
   "homepage": "https://github.com/jumplee/list",
   "authors": [
     "jumplee <liyuntao09@gmail.com>"
@@ -11,5 +11,8 @@
     "List",
     "Ajax"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "~2.1.4"
+  }
 }
