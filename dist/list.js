@@ -740,7 +740,7 @@
             //注册单击事件
             self.templateView.on('click','.x-list-item',function(e){
                 var item=$(this);
-                var itemData=self.rawData[self.options.dataName][item.attr('data-index')];
+                var itemData=self.vo[item.attr('data-index')];
                 self.options.onItemClick.call(self,this,itemData, e.target,item.attr('data-index'),e);
             });
             //增加touch时间效果
@@ -778,11 +778,11 @@
                     data:param,
                     success:callback,
                     error:function(xhr){
-                       //if(xhr.readyState==0){
-                       //
-                       //}else{
-                       //
-                       //}
+                        //if(xhr.readyState==0){
+                        //
+                        //}else{
+                        //
+                        //}
                         responseError()
                     }
                 })
@@ -859,8 +859,13 @@
             //vo :数据
             //view:用于填充模板的div对象
             if(typeof this.options.onLoad=="function"){
-                this.options.onLoad(vo);
+                var new_vo=this.options.onLoad(vo);
+                if(typeof new_vo!=='undefined'){
+                    vo=new_vo;
+                }
             }
+            //将vo注册到page，用于onItemClick
+            this.vo=vo;
             this._render(vo,this.templateView);
             if(typeof this.options.onrender=="function"){
                 this.options.onrender($(this.options.element));
@@ -897,12 +902,15 @@
         }
         ,getCurrentPage:function(){
             return this.currentPage;
-        }
+        },
+        reload:function(){
+            this.page(this.currentPage);
+        },
         /**
          * 显示某一页
          * @param page_num
          */
-        ,page:function(page_num){
+        page:function(page_num){
             var before_num=this.currentPage;
             if(page_num>0&&page_num<this.total+1){
                 this.currentPage=page_num;
@@ -914,9 +922,10 @@
                 console.log('list:page fail,reInit');
                 this.init();
             }
-
             //避免页数相同的时候不请求后台
-            this.pageBar.trigger('page-changed',[before_num,page_num]);
+            if(before_num==page_num){
+                this.pageBar.trigger('page-changed',[before_num,page_num]);
+            }
         },
         destory : function(){
 

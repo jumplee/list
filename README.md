@@ -79,17 +79,17 @@ module.exports = Controller("Home/BaseController", function(){
  *    rowLimit:一页的行数
  *		tpl:Handlebars或者类似的模板函数的编译后的函数
  *		element:选中后用来填充html的目标元素
- *		onLoad:参数vo,加载过来的vo,对vo进行加工生成需要的结构体，**必须返回数据**
+ *		onLoad:参数vo,加载过来的vo,对vo进行加工生成需要的结构体，**如果修改vo,必须返回值**
  *		width:要显示的区域的宽度
  *		height:要显示的区域的高度
- *		onender:render完成后执行事件
+ *		onRender:render完成后执行事件
  *    emptyText:'<div class="x-list-empty-text">暂无数据</div>' 当不存在数据的时候
  *		pagePosition:放置分页的位置 默认为"bottom" 可选项："top" ,"bottom"
  *		//后台交互的数据中可以自定义的参数----------------
  *		pageParam: 用来设置提交参数中的表示页数的参数名称
  *		totalName: 数据的总数，用来后台返回 默认值为 total
- *    dataName:  返回数据的参数  默认： result
-
+ *      dataName:  返回数据的参数  默认： result
+ *      onItemClick  单击某一行的事件
 ##api
 page(num)
 	
@@ -98,7 +98,11 @@ page(num)
 setOpts(optionObject)
 
 	设置参数
-	
+
+reload()
+
+    重新加载
+
 ##todo
 1.代码测试
 2.浏览器兼容性测试和罗列
