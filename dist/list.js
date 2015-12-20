@@ -787,7 +787,6 @@
                     }
                 })
             }
-
             function responseError(){
                 self.viewDom.find(".x-list-zzc").hide();
                 self.viewDom.find('.x-list-inner').html(

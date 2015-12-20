@@ -89,7 +89,7 @@ module.exports = Controller("Home/BaseController", function(){
  *		pageParam: 用来设置提交参数中的表示页数的参数名称
  *		totalName: 数据的总数，用来后台返回 默认值为 total
  *      dataName:  返回数据的参数  默认： result
- *      onItemClick  单击某一行的事件
+ *      onItemClick  单击某一行的事件()
 ##api
 page(num)
 	
