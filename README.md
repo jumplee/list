@@ -90,7 +90,8 @@ module.exports = Controller("Home/BaseController", function(){
  *		totalName: 数据的总数，用来后台返回 默认值为 total
  *      dataName:  返回数据的参数  默认： result
  *      onItemClick  单击某一行的事件()
-##api
+
+## api
 page(num)
 	
 	显示某一页
@@ -103,7 +104,3 @@ reload()
 
     重新加载
 
-##todo
-1.代码测试
-2.浏览器兼容性测试和罗列
-3.去除对bootstrapager的依赖。
