@@ -740,7 +740,7 @@
             //注册单击事件
             self.templateView.on('click','.x-list-item',function(e){
                 var item=$(this);
-                var itemData=self.vo[item.attr('data-index')];
+                var itemData=self.data[item.attr('data-index')];
                 self.options.onItemClick.call(self,this,itemData, e.target,item.attr('data-index'),e);
             });
             //增加touch时间效果
@@ -800,7 +800,6 @@
                 }
             }
             function response(data){
-                self.rawData=data;
                 if(!self.options.dataName){
                     throw 'options error: dataName undefined';
                 }else{
@@ -819,11 +818,13 @@
                 //不能用this,这里的this指的是页码div的dom对象
                 self.currentPage=np;
                 fetch(function(data){
+                    self.data=data;
                     if(null==self.options.dataName){
                         var vo=data;
                     }else{
                         var vo=data[self.options.dataName];
                     }
+
                     self.render(vo);
                 });
             }
@@ -863,8 +864,6 @@
                     vo=new_vo;
                 }
             }
-            //将vo注册到page，用于onItemClick
-            this.vo=vo;
             this._render(vo,this.templateView);
             if(typeof this.options.onrender=="function"){
                 this.options.onrender($(this.options.element));
